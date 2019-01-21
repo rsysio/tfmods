@@ -15,6 +15,6 @@ resource "aws_ssm_parameter" "dynamodb_table_default" {
 resource "aws_ssm_parameter" "backend_region_default" {
   name      = "${var.param_tfstate_region}"
   type      = "String"
-  value     = "${data.aws_region.current.name}"
+  value     = "${var.backend_region}"
   overwrite = true
 }
