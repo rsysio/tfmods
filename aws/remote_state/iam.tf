@@ -1,3 +1,22 @@
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_policy_document" "assume" {
+  statement {
+    principals {
+      type = "AWS"
+
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root",
+      ]
+    }
+  }
+}
+
+resource "aws_iam_role" "tfstate" {
+  name               = "tfstate"
+  assume_role_policy = "${data.aws_iam_policy_document.assume.json}"
+}
+
 data "aws_iam_policy_document" "tfstate" {
   statement {
     actions = [
@@ -33,7 +52,7 @@ data "aws_iam_policy_document" "tfstate" {
   }
 }
 
-resource "aws_iam_role" "tfstate" {
-  name               = "tfstate"
-  assume_role_policy = "${data.aws_iam_policy_document.tfstate.json}"
+resource "aws_iam_role_policy_attachment" "tfstate" {
+  role       = "${aws_iam_role.tfstate.arn}"
+  policy_arn = "${data.aws_iam_policy_document.tfstate.json}"
 }
