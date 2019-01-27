@@ -3,11 +3,11 @@ variable tags {
   description = "Tags to set on S3 backend resources"
 
   default = {
-    "Name" = "Terraform State"
+    "Name" = "Terraform Remote State"
   }
 }
 
-variable "account_name" {
+variable "bucket_name_prefix" {
   type        = "string"
   description = "account alias set in IAM"
 }
