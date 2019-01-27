@@ -33,6 +33,7 @@ data "aws_iam_policy_document" "tfstate" {
   }
 }
 
-resource "aws_iam_role" "tfstate " {
-  assume_role_policy = "${data.aws_iam_policy_document.tfstate.id}"
+resource "aws_iam_role" "tfstate" {
+  name               = "tfstate"
+  assume_role_policy = "${data.aws_iam_policy_document.tfstate.json}"
 }
