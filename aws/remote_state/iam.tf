@@ -56,7 +56,11 @@ data "aws_iam_policy_document" "tfstate" {
   }
 }
 
+resource "aws_iam_policy" "tfstate" {
+  policy = "${data.aws_iam_policy_document.tfstate.json}"
+}
+
 resource "aws_iam_role_policy_attachment" "tfstate" {
   role       = "${aws_iam_role.tfstate.name}"
-  policy_arn = "${data.aws_iam_policy_document.tfstate.json}"
+  policy_arn = "${aws_iam_policy.tfstate.arn}"
 }
