@@ -1,7 +1,7 @@
 resource "aws_ssm_parameter" "s3_bucket_default" {
   name      = "${var.param_tfstate_s3_bucket}"
   type      = "String"
-  value     = "${aws_s3_bucket.terraform_state.id}"
+  value     = "${aws_s3_bucket.remote_state.id}"
   overwrite = true
 }
 
