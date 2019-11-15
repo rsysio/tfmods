@@ -1,5 +1,5 @@
 variable tags {
-  type        = any
+  type        = map(string)
   description = "Tags to set on S3 backend resources"
 
   default = {
