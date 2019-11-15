@@ -1,5 +1,5 @@
 variable tags {
-  type        = "map"
+  type        = object({})
   description = "Tags to set on S3 backend resources"
 
   default = {
@@ -8,18 +8,18 @@ variable tags {
 }
 
 variable "bucket_name_prefix" {
-  type        = "string"
+  type        = string
   description = "account alias set in IAM"
 }
 
 variable "backend_region" {
-  type        = "string"
+  type        = string
   description = "region for the remote state"
   default     = "us-east-1"
 }
 
 variable "dynamodb_table_name" {
-  type        = "string"
+  type        = string
   description = "http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html"
   default     = "terraform_statelock"
 }
