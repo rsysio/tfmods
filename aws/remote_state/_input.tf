@@ -1,5 +1,5 @@
 variable tags {
-  type        = object({})
+  type        = any
   description = "Tags to set on S3 backend resources"
 
   default = {
