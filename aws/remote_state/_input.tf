@@ -26,28 +26,10 @@ variable "dynamodb_table_name" {
 
 variable "dynamodb_read_capacity" {
   description = "Dynamodb throughput capacity for reads"
-  default     = 5
+  default     = 1
 }
 
 variable "dynamodb_write_capacity" {
   description = "Dynamodb throughput capacity for writes"
   default     = 1
-}
-
-variable "param_tfstate_dynamodb" {
-  type        = "string"
-  description = "Parameter store key for dynamodb table name"
-  default     = "/terraform/backend/dynamodb_table"
-}
-
-variable "param_tfstate_s3_bucket" {
-  type        = "string"
-  description = "Parameter store key for S3 bucket name"
-  default     = "/terraform/backend/bucket"
-}
-
-variable "param_tfstate_region" {
-  type        = "string"
-  description = "Parameter store key for backend region"
-  default     = "/terraform/backend/region"
 }

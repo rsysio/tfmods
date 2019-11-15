@@ -18,17 +18,17 @@ data "aws_iam_policy_document" "assume" {
 
 resource "aws_iam_role" "tfstate" {
   name               = "tfstate"
-  assume_role_policy = "${data.aws_iam_policy_document.assume.json}"
+  assume_role_policy = data.aws_iam_policy_document.assume.json
 }
 
 data "aws_iam_policy_document" "tfstate" {
   statement {
     actions = [
-      "s3:ListBucket",
+      "s3:ListBucket"
     ]
 
     resources = [
-      "${aws_s3_bucket.remote_state.arn}",
+      aws_s3_bucket.remote_state.arn
     ]
   }
 
@@ -51,16 +51,16 @@ data "aws_iam_policy_document" "tfstate" {
     ]
 
     resources = [
-      "${aws_dynamodb_table.terraform_statelock.arn}",
+      aws_dynamodb_table.terraform_statelock.arn,
     ]
   }
 }
 
 resource "aws_iam_policy" "tfstate" {
-  policy = "${data.aws_iam_policy_document.tfstate.json}"
+  policy = data.aws_iam_policy_document.tfstate.json
 }
 
 resource "aws_iam_role_policy_attachment" "tfstate" {
-  role       = "${aws_iam_role.tfstate.name}"
-  policy_arn = "${aws_iam_policy.tfstate.arn}"
+  role       = aws_iam_role.tfstate.name
+  policy_arn = aws_iam_policy.tfstate.arn
 }
