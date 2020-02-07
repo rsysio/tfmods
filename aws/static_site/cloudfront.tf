@@ -1,7 +1,7 @@
 resource "aws_cloudfront_distribution" "site" {
   origin {
-    domain_name = "${aws_s3_bucket.site.bucket_regional_domain_name}"
-    origin_id   = "${var.origin_access_id}"
+    domain_name = aws_s3_bucket.site.bucket_regional_domain_name
+    origin_id   = var.origin_access_id
 
     s3_origin_config {
       origin_access_identity = "origin-access-identity/cloudfront/${var.origin_access_id}"
@@ -13,12 +13,12 @@ resource "aws_cloudfront_distribution" "site" {
   comment             = "Static site"
   default_root_object = "index.html"
 
-  aliases = ["${var.domain_name}"]
+  aliases = [var.domain_name]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${var.origin_access_id}"
+    target_origin_id = var.origin_access_id
     compress         = true
 
     forwarded_values {
@@ -43,13 +43,10 @@ resource "aws_cloudfront_distribution" "site" {
     }
   }
 
-  tags = "${merge(
-    var.default_tags,
-    map("Role", "static site")
-  )}"
+  tags = local.tags
 
   viewer_certificate {
-    acm_certificate_arn = "${aws_acm_certificate.site.arn}"
+    acm_certificate_arn = aws_acm_certificate.site.arn
     ssl_support_method  = "sni-only"
   }
 }

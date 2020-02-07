@@ -1,5 +1,6 @@
 variable "origin_access_id" {
   description = "CloudFront Origin Access Identity"
+  type = string
 }
 
 variable "domain_name" {
@@ -11,6 +12,6 @@ variable "zone_id" {
 }
 
 variable "default_tags" {
-  type        = "map"
+  type        = map(string)
   description = "set of common tags for all resources"
 }
