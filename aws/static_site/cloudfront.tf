@@ -13,7 +13,7 @@ resource "aws_cloudfront_distribution" "site" {
   comment             = "Static site"
   default_root_object = "index.html"
 
-  aliases = [var.domain_name]
+  aliases = concat(var.fqdn, var.aliases)
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]

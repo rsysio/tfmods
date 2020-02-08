@@ -1,10 +1,16 @@
 variable "origin_access_id" {
   description = "CloudFront Origin Access Identity"
-  type = string
+  type        = string
 }
 
-variable "domain_name" {
-  description = "www.example.com"
+variable "fqdn" {
+  description = "the fqdm for this page: www.example.com"
+  type        = string
+}
+
+variable "aliases" {
+  description = "additional domain names for this page: example.com"
+  type        = list(string)
 }
 
 variable "zone_id" {
