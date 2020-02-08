@@ -46,7 +46,7 @@ resource "aws_cloudfront_distribution" "site" {
   tags = local.tags
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.site.arn
+    acm_certificate_arn = aws_acm_certificate.cert.arn
     ssl_support_method  = "sni-only"
   }
 }
