@@ -1,10 +1,7 @@
 resource "aws_s3_bucket" "site" {
   acl = "private"
 
-  tags = "${merge(
-    var.default_tags,
-    map("Role", "static site")
-  )}"
+  tags = local.tags
 }
 
 data "aws_iam_policy_document" "bucket" {
@@ -20,6 +17,6 @@ data "aws_iam_policy_document" "bucket" {
 }
 
 resource "aws_s3_bucket_policy" "site" {
-  bucket = "${aws_s3_bucket.site.id}"
-  policy = "${data.aws_iam_policy_document.bucket.json}"
+  bucket = aws_s3_bucket.site.id
+  policy = data.aws_iam_policy_document.bucket.json
 }
