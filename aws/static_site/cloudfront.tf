@@ -36,7 +36,7 @@ resource "aws_cloudfront_distribution" "site" {
     max_ttl                = 86400
   }
 
-  price_class = "PriceClass_200"
+  price_class = "PriceClass_100"
 
   restrictions {
     geo_restriction {
@@ -47,7 +47,8 @@ resource "aws_cloudfront_distribution" "site" {
   tags = local.tags
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.cert.arn
-    ssl_support_method  = "sni-only"
+    acm_certificate_arn      = aws_acm_certificate.cert.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.1_2016"
   }
 }
