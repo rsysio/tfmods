@@ -1,4 +1,5 @@
 resource "aws_cloudfront_distribution" "site" {
+
   origin {
     domain_name = aws_s3_bucket.site.bucket_regional_domain_name
     origin_id   = var.origin_access_id
