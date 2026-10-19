@@ -12,12 +12,15 @@ resource "aws_acm_certificate" "cert" {
 }
 
 resource "aws_route53_record" "cert_validation" {
-  count = length(concat([var.fqdn], var.aliases))
+  for_each = {
+    for dvo in aws_acm_certificate.cert.domain_validation_options :
+    dvo.domain_name => dvo
+  }
 
   allow_overwrite = true
-  name            = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_name
-  type            = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_type
+  name            = each.value.resource_record_name
+  type            = each.value.resource_record_type
   zone_id         = var.zone_id
-  records         = [aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_value]
+  records         = [each.value.resource_record_value]
   ttl             = 60
 }
