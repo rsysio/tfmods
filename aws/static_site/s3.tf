@@ -1,5 +1,4 @@
 resource "aws_s3_bucket" "site" {
-  acl = "private"
 
   tags = local.tags
 }
@@ -19,4 +18,10 @@ data "aws_iam_policy_document" "bucket" {
 resource "aws_s3_bucket_policy" "site" {
   bucket = aws_s3_bucket.site.id
   policy = data.aws_iam_policy_document.bucket.json
+}
+
+resource "aws_s3_bucket_acl" "site" {
+
+  bucket = aws_s3_bucket_policy.site.id
+  acl    = "private"
 }
